@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Update package repository
+sudo yum update -y
+
+# Install Apache HTTP Server
+sudo yum install httpd -y
+
+# Start Apache HTTP Server
+sudo systemctl start httpd
+
+# Enable Apache HTTP Server to start on boot
+sudo systemctl enable httpd
+
+# Create index.html file
+sudo bash -c 'echo "<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Welcome to my website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class=\"container\">
+        <h1>Welcome to my website!</h1>
+        <p>This is a sample webpage served by Apache HTTP Server on AWS.</p>
+        <p>Created by: Prajwal Shilimkar</p>
+    </div>
+</body>
+</html>" > /var/www/html/index.html'
+
+# Reload Apache HTTP Server to apply changes
+sudo systemctl reload httpd
+
+# Print Apache HTTP Server status
+systemctl status httpd
